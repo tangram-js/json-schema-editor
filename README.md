@@ -23,7 +23,7 @@ npm run build
 npm run build --report
 ```
 ## About Firebase Configuration
-This project requires valid Firebase configuration to function properly, replace config in `\src\firebase\index.js` with your Firebase config:
+This project requires valid Firebase configuration to function properly, replace config in `/src/firebase/index.js` with your Firebase config:
  ``` js
  // Initialize firebase
  // Replace following config with your Firebase config
