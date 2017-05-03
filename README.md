@@ -1,7 +1,7 @@
 # json-schema-editor
 
 > An intuitive editor for json schema which provides a tree view to present structure of schema and a property inspector to edit the properties of schema element. 
-> Develop with Vue.js 2 and Firebase. [https://json-schema-editor.tangramjs.com](https://json-schema-editor.tangramjs.com)
+> Develop with Vue.js 2 and Firebase. Please reference the [project website](https://json-schema-editor.tangramjs.com) for detail.
 
 ## Install
 ``` bash
