@@ -7,7 +7,7 @@
 #### Pallet of schema elements
 List of all elements of JSON schema, could drag and drop to tree view.
 #### Pallet of user schemas
-List of all user schemas, which store in Firebase. User could save, load, delete and import schemas, schema could drag and drop to tree view.
+List of all user schemas, which are stored in Firebase. User could save, load, delete and import schemas, schema could drag and drop to tree view.
 #### Tree View of schema elements
 The structure of schema, could expend or collapse at any level.
 #### Context Menu
