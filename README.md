@@ -56,3 +56,6 @@ This project requires a valid Firebase configuration to function properly, pleas
    messagingSenderId: 'your firebase message sender id'
  }
  ```
+## To Do List
+- Schema Extension - Add support to custom schema elements.
+- Schema Aware JSON Editor - Extend JSON Schema Editor to schema aware JSON editor.
