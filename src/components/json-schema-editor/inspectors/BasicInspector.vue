@@ -69,7 +69,7 @@
           this.$set(prop, 'errMsg', valid ? null : 'Please input integer.')
         }
         if (prop.type === 'number') {
-          valid = !Number.isNaN(Number.parseFloat(prop.value)) && Number.isFinite(prop.value)
+          valid = !Number.isNaN(Number.parseFloat(prop.value)) && Number.isFinite(Number.parseFloat(prop.value))
           value = Number.parseFloat(prop.value)
           prop.errMsg = valid ? null : 'Please input number.'
         }
