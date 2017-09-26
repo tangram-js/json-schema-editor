@@ -5,7 +5,7 @@ function clone (source) {
 function convertTypeToSchema (node) {
   let schema = clone(node.value)
   if (node.children && node.children.length > 0) {
-    schema.enum = clone(node.children[0].value.enum)
+    schema.enum = clone(node.children[0].value)
   }
   return schema
 }
