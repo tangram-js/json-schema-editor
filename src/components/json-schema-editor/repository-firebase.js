@@ -79,7 +79,7 @@ export class Repository {
     let reference = `/schemas/${this.uid}/${schemaName}`
     let schema = await this.database.readValue(reference)
     if (schema) {
-      schema = DecodeSchema(schema)
+      schema = DecodeSchema(schema) // decode schema
       if (dereference || typeof dereference === 'undefined') {
         try {
           return await $RefParser.dereference(schema, { resolve: { firebase: this.firebaseResolver } })
@@ -99,7 +99,7 @@ export class Repository {
     let queryResult = await this.database.readSnapshot(reference)
     let schemas = []
     queryResult.forEach(item => {
-      schemas.push(DecodeSchema(item.val()))
+      schemas.push(DecodeSchema(item.val()))  // decode schema
     })
     return schemas
   }
@@ -114,7 +114,7 @@ export class Repository {
   async saveSchema (schema, schemaName) {
     if (!this.uid) throw new RepositoryNotInitError()
     let reference = `/schemas/${this.uid}/${schemaName}`
-    await this.database.write(reference, EncodeSchema(schema))
+    await this.database.write(reference, EncodeSchema(schema))  // encode schema
   }
 
   async deleteSchema (schemaName) {
