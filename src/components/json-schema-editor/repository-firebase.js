@@ -22,7 +22,7 @@ SchemaNotExistError.prototype.constructor = SchemaNotExistError
 
 // encode key to URL Encoded string
 function EncodeSchema (schema) {
-  var result = {}
+  var result = Array.isArray(schema) ? [] : {}
   for (var prop in schema) {
     var value = schema[prop]
     if (typeof value === 'object') {
@@ -36,7 +36,7 @@ function EncodeSchema (schema) {
 
 // decode key from URL Encoded string
 function DecodeSchema (schema) {
-  var result = {}
+  var result = Array.isArray(schema) ? [] : {}
   for (var prop in schema) {
     var value = schema[prop]
     if (typeof value === 'object') {
