@@ -25,7 +25,7 @@ function EncodeSchema (schema) {
   var result = {}
   for (var prop in schema) {
     var value = schema[prop]
-    if (typeof value === 'object' && !Array.isArray(value)) {
+    if (typeof value === 'object') {
       result[encodeURIComponent(prop)] = EncodeSchema(value)
     } else {
       result[encodeURIComponent(prop)] = value
@@ -39,7 +39,7 @@ function DecodeSchema (schema) {
   var result = {}
   for (var prop in schema) {
     var value = schema[prop]
-    if (typeof value === 'object' && !Array.isArray(value)) {
+    if (typeof value === 'object') {
       result[decodeURIComponent(prop)] = DecodeSchema(value)
     } else {
       result[decodeURIComponent(prop)] = value
