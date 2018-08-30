@@ -56,6 +56,5 @@ This project requires a valid Firebase configuration to function properly, pleas
    messagingSenderId: 'your firebase message sender id'
  }
  ```
-## To Do List
-- Schema Extension - Add support to custom schema elements.
-- Schema Aware JSON Editor - Extend JSON Schema Editor to schema aware JSON editor.
+## About JSON Editor
+[JSON Editor](https://github.com/tangram-js/json-editor) is successor of JSON Schema Editor, which is a schema-aware editor for JSON document including JSON schema. It provides a tree view to present the structure of JSON document, user could manipulate the JSON from context menu. There is a text view to present the content of JSON document, user may edit JSON within. They share user accounts and user schema repository, so user could use one account to login both editors and access schemas.
