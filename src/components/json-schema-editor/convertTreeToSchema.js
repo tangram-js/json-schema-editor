@@ -177,10 +177,43 @@ function convertOptionToSchema (node) {
   return schema
 }
 
+function convertDefinitionsToSchema (node) {
+  let schema = {}
+  node.children.forEach(child => {
+    switch (child.type) {
+      case 'jsonSchema':
+        schema[child.name] = convertTreeToSchema(child)
+        break
+      case 'string':
+      case 'integer':
+      case 'number':
+      case 'boolean':
+      case 'null':
+      case 'enum':
+      case 'ref':
+        schema[child.name] = convertTypeToSchema(child)
+        break
+      case 'object':
+        schema[child.name] = convertObjectToSchema(child)
+        break
+      case 'array':
+        schema[child.name] = convertArrayToSchema(child)
+        break
+      case 'allOf':
+      case 'anyOf':
+      case 'oneOf':
+      case 'not':
+        schema[child.name] = convertOptionToSchema(child)
+        break
+    }
+  })
+  return schema
+}
+
 export function convertTreeToSchema (tree) {
   let schema = {}
-  if (tree.children.length > 0) {
-    let child = tree.children[0]
+  let definitions
+  tree.children.forEach(child => {
     switch (child.type) {
       case 'jsonSchema':
         schema = convertTreeToSchema(child)
@@ -205,10 +238,14 @@ export function convertTreeToSchema (tree) {
       case 'not':
         schema = convertOptionToSchema(child)
         break
+      case 'definitions':
+        definitions = convertDefinitionsToSchema(child)
+        break
     }
-  }
+  })
   if (!tree.parent) schema.title = tree.name
   if (tree.value.description) schema.description = tree.value.description
+  if (definitions) schema.definitions = definitions
   return schema
 }
 

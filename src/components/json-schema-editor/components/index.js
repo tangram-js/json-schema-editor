@@ -2,6 +2,7 @@ import AllOfComponent from './allOf'
 import AnyOfComponent from './anyOf'
 import ArrayComponent from './array'
 import BooleanComponent from './boolean'
+import DefinitionsComponent from './definitions'
 import DependenciesComponent from './dependencies'
 import DependencyItemComponent from './dependencyItem'
 import EnumComponent from './enum'
@@ -23,6 +24,7 @@ export default {
   AnyOfComponent,
   ArrayComponent,
   BooleanComponent,
+  DefinitionsComponent,
   DependenciesComponent,
   DependencyItemComponent,
   EnumComponent,

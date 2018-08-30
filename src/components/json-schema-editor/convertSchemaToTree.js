@@ -142,6 +142,16 @@ function convertRefToTree (tree, schema) {
   tree.children.push(node)
 }
 
+function convertDefinitionsToTree (tree, schema) {
+  let node = new Components.DefinitionsComponent()
+  Object.keys(schema).forEach(p => {
+    convertSubSchemaToTree(node, schema[p])
+    node.children[node.children.length - 1].name = p
+    node.children[node.children.length - 1].editable = true
+  })
+  tree.children.push(node)
+}
+
 function convertSubSchemaToTree (tree, schema) {
   if (schema.type) {
     switch (schema.type) {
@@ -175,6 +185,9 @@ export function convertSchemaToTree (schema, name) {
   tree.tooltip = schema.description
   tree.value.description = schema.description
   convertSubSchemaToTree(tree, schema)
+  if (schema.definitions) {
+    convertDefinitionsToTree(tree, schema.definitions)
+  }
   return tree
 }
 

@@ -13,6 +13,7 @@ export default {
   remark: require('./remark24.png'),
   dependencies: require('./dependencies24.png'),
   dependency: require('./dependency24.png'),
+  definitions: require('./object24.png'),
   icon (name) {
     if (name) {
       if (this[name]) return this[name]

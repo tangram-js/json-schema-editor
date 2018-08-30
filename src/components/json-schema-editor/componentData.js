@@ -18,7 +18,8 @@ export var componentData = [
   new Components.AnyOfComponent('Data must be valid against any of the given subschemas'),
   new Components.OneOfComponent('Data must be valid against exactly one of the given subschemas'),
   new Components.NotComponent('Data must not be valid against all of the given subschemas'),
-  new Components.RefComponent('Reference to external schema')
+  new Components.RefComponent('Reference to external schema'),
+  new Components.DefinitionsComponent('Definitions of reusable schema')
 ]
 
 export default componentData

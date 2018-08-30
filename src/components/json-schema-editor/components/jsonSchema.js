@@ -19,7 +19,12 @@ export class JsonSchemaComponent {
     this.funcs = {
       accept (dest, node) {
         // could only has one child
-        if (dest.children.length > 0) return false
+        if (dest.children.length > 0) {
+          if (dest.children.length > 1) return false
+          if ((dest.children[0].type === 'definitions' && node.type === 'definitions') ||
+            (dest.children[0].type !== 'definitions' && node.type !== 'definitions')) return false
+        }
+
         // list acceptable types
         switch (node.type) {
           case 'jsonSchema':
@@ -35,15 +40,24 @@ export class JsonSchemaComponent {
           case 'anyOf':
           case 'oneOf':
           case 'not':
+          case 'definitions':
             return true
           default:
             return false
         }
       },
       acceptList (dest) {
-        return (dest.children.length === 0)
-          ? ['string', 'integer', 'number', 'boolean', 'object', 'array', 'null',
-            'enum', 'allOf', 'anyOf', 'oneOf', 'not', 'ref'] : []
+        if (dest.children.length > 0) {
+          if (dest.children.length > 1) return []
+          if (dest.children[0].type === 'definitions') {
+            return ['string', 'integer', 'number', 'boolean', 'object', 'array', 'null',
+              'enum', 'allOf', 'anyOf', 'oneOf', 'not', 'ref']
+          } else {
+            return ['definitions']
+          }
+        }
+        return ['string', 'integer', 'number', 'boolean', 'object', 'array', 'null',
+          'enum', 'allOf', 'anyOf', 'oneOf', 'not', 'ref', 'definitions']
       },
       dropped (dest, node) {
         // dest.expended = true

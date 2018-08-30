@@ -1,6 +1,6 @@
 {
   "name": "json-schema-editor",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An intuitive editor for json schema which provides a tree view to present structure of schema and a property inspector to edit the properties of schema element. Develop with Vue 2.",
   "author": "James Huang <james_huang@tangramjs.com>",
   "private": true,
