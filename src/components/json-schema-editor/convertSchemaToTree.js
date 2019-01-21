@@ -100,7 +100,8 @@ function convertArrayToTree (tree, schema) {
 
 function convertEnumToTree (tree, schema) {
   let node = new Components.EnumComponent()
-  node.value = schema
+  let enumValue = { enum: schema }
+  node.value = enumValue
   tree.children.push(node)
 }
 
