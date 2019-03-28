@@ -5,7 +5,7 @@ function clone (source) {
 function convertTypeToSchema (node) {
   let schema = clone(node.value)
   if (node.children && node.children.length > 0) {
-    schema.enum = clone(node.children[0].value)
+    schema.enum = clone(node.children[0].value.enum)
   }
   return schema
 }
@@ -212,8 +212,8 @@ function convertDefinitionsToSchema (node) {
 
 export function convertTreeToSchema (tree) {
   let schema = {}
-  let definitions
-  tree.children.forEach(child => {
+  if (tree.children.length > 0) {
+    let child = tree.children[0]
     switch (child.type) {
       case 'jsonSchema':
         schema = convertTreeToSchema(child)
@@ -239,13 +239,12 @@ export function convertTreeToSchema (tree) {
         schema = convertOptionToSchema(child)
         break
       case 'definitions':
-        definitions = convertDefinitionsToSchema(child)
+        schema.definitions = convertDefinitionsToSchema(child)
         break
     }
-  })
+  }
   if (!tree.parent) schema.title = tree.name
   if (tree.value.description) schema.description = tree.value.description
-  if (definitions) schema.definitions = definitions
   return schema
 }
 

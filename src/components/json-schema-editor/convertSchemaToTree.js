@@ -100,8 +100,9 @@ function convertArrayToTree (tree, schema) {
 
 function convertEnumToTree (tree, schema) {
   let node = new Components.EnumComponent()
-  let enumValue = { enum: schema }
-  node.value = enumValue
+  node.value = {
+    enum: schema
+  }
   tree.children.push(node)
 }
 
@@ -178,6 +179,7 @@ function convertSubSchemaToTree (tree, schema) {
   if (schema.oneOf) return convertOneOfToTree(tree, schema.oneOf)
   if (schema.not) return convertNotToTree(tree, schema.not)
   if (schema['$ref']) return convertRefToTree(tree, schema['$ref'])
+  if (schema.definitions) convertDefinitionsToTree(tree, schema.definitions)
 }
 
 export function convertSchemaToTree (schema, name) {
@@ -186,9 +188,6 @@ export function convertSchemaToTree (schema, name) {
   tree.tooltip = schema.description
   tree.value.description = schema.description
   convertSubSchemaToTree(tree, schema)
-  if (schema.definitions) {
-    convertDefinitionsToTree(tree, schema.definitions)
-  }
   return tree
 }
 
