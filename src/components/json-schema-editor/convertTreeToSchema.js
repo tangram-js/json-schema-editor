@@ -177,6 +177,39 @@ function convertOptionToSchema (node) {
   return schema
 }
 
+function convertDefinitionsToSchema (node) {
+  let schema = {}
+  node.children.forEach(child => {
+    switch (child.type) {
+      case 'jsonSchema':
+        schema[child.name] = convertTreeToSchema(child)
+        break
+      case 'string':
+      case 'integer':
+      case 'number':
+      case 'boolean':
+      case 'null':
+      case 'enum':
+      case 'ref':
+        schema[child.name] = convertTypeToSchema(child)
+        break
+      case 'object':
+        schema[child.name] = convertObjectToSchema(child)
+        break
+      case 'array':
+        schema[child.name] = convertArrayToSchema(child)
+        break
+      case 'allOf':
+      case 'anyOf':
+      case 'oneOf':
+      case 'not':
+        schema[child.name] = convertOptionToSchema(child)
+        break
+    }
+  })
+  return schema
+}
+
 export function convertTreeToSchema (tree) {
   let schema = {}
   if (tree.children.length > 0) {
@@ -204,6 +237,9 @@ export function convertTreeToSchema (tree) {
       case 'oneOf':
       case 'not':
         schema = convertOptionToSchema(child)
+        break
+      case 'definitions':
+        schema.definitions = convertDefinitionsToSchema(child)
         break
     }
   }

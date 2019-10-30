@@ -20,6 +20,34 @@ export function SchemaNotExistError (message) {
 SchemaNotExistError.prototype = Object.create(Error.prototype)
 SchemaNotExistError.prototype.constructor = SchemaNotExistError
 
+// encode key to URL Encoded string
+function EncodeSchema (schema) {
+  var result = Array.isArray(schema) ? [] : {}
+  for (var prop in schema) {
+    var value = schema[prop]
+    if (typeof value === 'object') {
+      result[encodeURIComponent(prop)] = EncodeSchema(value)
+    } else {
+      result[encodeURIComponent(prop)] = value
+    }
+  }
+  return result
+}
+
+// decode key from URL Encoded string
+function DecodeSchema (schema) {
+  var result = Array.isArray(schema) ? [] : {}
+  for (var prop in schema) {
+    var value = schema[prop]
+    if (typeof value === 'object') {
+      result[decodeURIComponent(prop)] = DecodeSchema(value)
+    } else {
+      result[decodeURIComponent(prop)] = value
+    }
+  }
+  return result
+}
+
 export class Repository {
   constructor () {
     this.database = new Database()
@@ -51,6 +79,7 @@ export class Repository {
     let reference = `/schemas/${this.uid}/${schemaName}`
     let schema = await this.database.readValue(reference)
     if (schema) {
+      schema = DecodeSchema(schema) // decode schema
       if (dereference || typeof dereference === 'undefined') {
         try {
           return await $RefParser.dereference(schema, { resolve: { firebase: this.firebaseResolver } })
@@ -70,7 +99,7 @@ export class Repository {
     let queryResult = await this.database.readSnapshot(reference)
     let schemas = []
     queryResult.forEach(item => {
-      schemas.push(item.val())
+      schemas.push(DecodeSchema(item.val()))  // decode schema
     })
     return schemas
   }
@@ -85,7 +114,7 @@ export class Repository {
   async saveSchema (schema, schemaName) {
     if (!this.uid) throw new RepositoryNotInitError()
     let reference = `/schemas/${this.uid}/${schemaName}`
-    await this.database.write(reference, schema)
+    await this.database.write(reference, EncodeSchema(schema))  // encode schema
   }
 
   async deleteSchema (schemaName) {
