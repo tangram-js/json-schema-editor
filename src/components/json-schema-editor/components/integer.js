@@ -17,13 +17,13 @@ export class IntegerComponent {
           type: 'integer'
         },
         excludeMinimum: {
-          type: 'boolean'
+          type: 'integer'
         },
         maximum: {
           type: 'integer'
         },
         excludeMaximum: {
-          type: 'boolean'
+          type: 'integer'
         }
       }
     }

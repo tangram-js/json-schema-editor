@@ -18,13 +18,13 @@ export class NumberComponent {
           type: 'number'
         },
         excludeMinimum: {
-          type: 'boolean'
+          type: 'number'
         },
         maximum: {
           type: 'number'
         },
         excludeMaximum: {
-          type: 'boolean'
+          type: 'number'
         }
       }
     }
