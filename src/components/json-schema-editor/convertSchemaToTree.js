@@ -2,7 +2,7 @@ import Components from './components'
 
 function setNodeValue (node, schema, propertyList) {
   propertyList.forEach(property => {
-    if (schema[property] || schema[property] === 0) node.value[property] = schema[property]
+    if (schema[property] || schema[property] === 0 || schema[property] === false) node.value[property] = schema[property]
   })
 }
 
